@@ -1,40 +1,38 @@
 package com.company;
 
-import com.company.dao.UserDao;
+
 import com.company.model.User;
 import com.company.service.Gender;
+import com.company.service.UserService;
 import com.company.service.impl.UserServiceImpl;
 
-import java.util.ArrayList;
-import java.util.List;
+import static com.company.service.Gender.FEMALE;
+import static com.company.service.Gender.MALE;
 
 public class Main {
-
+     static UserService userService = new UserServiceImpl();
     public static void main(String[] args) {
-        ArrayList<User> users = new ArrayList<>(List.of(new User(1, "Aichurok", 28, Gender.FEMALE),
-                new User(2, "Ahmad", 5, Gender.MALE),
-                new User(3, "Mariam", 4, Gender.FEMALE)));
 
-            System.out.println("All users: ");
-            users.stream().forEach(x -> System.out.println(x));
-            UserDao userDao = new UserDao(users);
-            UserServiceImpl userService = new UserServiceImpl(userDao);
-            System.out.println("----------------------------------------------------");
-            System.out.println("User with ID number-1: ");
-            userService.findById(users, 1);
+        User user1 = new User(1,"Aichurok",28,FEMALE);
+        User user2 = new User(2,"Nurlan",24,MALE);
+        User user3 = new User(3,"Aichurok",28,FEMALE);
+        User user4 = new User(4,"Almaz",19,MALE);
 
-            for (User user1 : users) {
-                if (user1.getId() == 1) {
-                    System.out.println(user1);
-                } else if (user1.getId() != 1) {
-                    throw new InvalidIdException();
-                }
+        userService.saveUser(user1);
+        userService.saveUser(user2);
+        userService.saveUser(user3);
+        userService.saveUser(user4);
 
-            userService.deleteById(users, 2);
-                System.out.println("----------------------------------------------------");
-                System.out.println("All users after deleting the user with ID number-2: ");
-            userService.getAllUsers(users);
+        userService.getAll().forEach(System.out::println);
+        System.out.println();
 
-        }
+        System.out.println(userService.getById(4));
+        System.out.println();
+
+        userService.deleteById(2);
+        System.out.println();
+
+        userService.getAll().forEach(System.out::println);
+
     }
 }

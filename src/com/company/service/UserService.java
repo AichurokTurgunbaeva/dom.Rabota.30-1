@@ -5,15 +5,13 @@ import com.company.model.User;
 import java.util.List;
 
 public interface UserService {
+    void saveUser(User user);
 
+    User getById (int id);
 
-    void addUser(List<User> list, User user);
+    void deleteById(int id);
 
-    void findById(List<User> list, int id);
-
-    void deleteById(List<User> list, int id);
-
-    void getAllUsers(List<User> list);
+    List<User> getAll();
 }
 
 

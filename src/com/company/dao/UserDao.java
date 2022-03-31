@@ -2,12 +2,15 @@ package com.company.dao;
 
 import com.company.model.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class UserDao {
-    private List<User> users;
+public interface UserDao {
 
-    public UserDao(ArrayList<User> users) {
-    }
+    void saveUser(User user);
+
+    User getById (int id);
+
+    void deleteById(int id);
+
+    List<User> getAll();
 }

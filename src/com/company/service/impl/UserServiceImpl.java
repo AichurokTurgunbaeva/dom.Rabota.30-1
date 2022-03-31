@@ -2,58 +2,42 @@ package com.company.service.impl;
 
 import com.company.InvalidIdException;
 import com.company.dao.UserDao;
+import com.company.dao.UserDaoImpl;
 import com.company.model.User;
 import com.company.service.UserService;
 
 import java.util.List;
+import java.util.Objects;
 
 
 public class UserServiceImpl implements UserService {
-    private UserDao userDao;
 
-    public UserServiceImpl(UserDao user) {
-        this.userDao = user;
-    }
-
-    public UserDao getUser() {
-        return userDao;
-    }
-
-
+    UserDao dao = new UserDaoImpl();
 
     @Override
-    public void addUser(List<User> list, User user) {
-        list.add(user);
-    }
+    public void saveUser(User user) {
+        User user1 = new User();
+        String name = user.getName();
 
-    @Override
-    public void findById(List<User> list, int id) {
-        try {
-            for (User user1 : list) {
-                if (user1.getId() != id) {
-                    throw new InvalidIdException(" no such id ");
-                } else if(user1.getId() == id) {
-                }
-            }
-        } catch (InvalidIdException e){
+        if (Objects.equals(user1,name)){
+            throw new RuntimeException();
         }
-    }
-
-    private boolean user(int id) {
-        return false;
+        dao.saveUser(user);
     }
 
     @Override
-    public void deleteById(List<User> list, int id) {
-        list.removeIf(user1 -> user1.getId() == id);
-
+    public User getById(int id) {
+        return dao.getById(id);
     }
 
     @Override
-    public void getAllUsers(List<User> list) {
-        for (User user1 : list) {
-            System.out.println(user1);
-        }
+    public void deleteById(int id) {
+        dao.deleteById(id);
+    }
+
+    @Override
+    public List<User> getAll() {
+        return dao.getAll();
     }
 }
 
